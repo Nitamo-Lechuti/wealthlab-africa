@@ -38,6 +38,8 @@ button {
   font: inherit;
 }
 
+/* HEADER */
+
 .header {
   height: 88px;
   padding: 0 7%;
@@ -118,6 +120,8 @@ button {
   color: var(--forest);
   cursor: pointer;
 }
+
+/* HERO SECTION */
 
 .hero {
   min-height: 650px;
@@ -230,6 +234,8 @@ button {
   width: 35px;
   background: var(--teal);
 }
+
+/* HERO VISUAL */
 
 .hero-visual {
   min-width: 0;
@@ -346,6 +352,8 @@ button {
   color: var(--muted);
 }
 
+/* INTRODUCTION */
+
 .intro {
   max-width: 850px;
   padding: 125px 30px 115px;
@@ -377,6 +385,8 @@ button {
   font-size: 14px;
   line-height: 1.9;
 }
+
+/* LEARNING SECTION */
 
 .learning-section,
 .tools-section {
@@ -485,6 +495,8 @@ button {
   margin-left: 8px;
 }
 
+/* BOOK SECTION */
+
 .book-section {
   padding: 110px 12%;
   display: grid;
@@ -506,72 +518,41 @@ button {
   margin: 22px 0 30px;
 }
 
+/* REAL BOOK COVER IMAGE */
+
 .book-art {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 35px;
-  background: radial-gradient(circle, #E0F1E5, #F5FAF6 65%, white);
+  background: radial-gradient(
+    circle,
+    #E0F1E5,
+    #F5FAF6 65%,
+    white
+  );
+  overflow: hidden;
 }
 
-.book-cover {
-  width: 245px;
-  min-height: 350px;
-  padding: 25px 23px;
-  color: white;
-  background: linear-gradient(145deg, #125C3B, #082E21);
-  box-shadow: 18px 20px 30px rgba(11,57,39,.22);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transform: rotate(-4deg);
+.book-cover-image {
+  display: block;
+  width: 100%;
+  max-width: 390px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow:
+    18px 22px 40px rgba(11,57,39,.18),
+    0 5px 12px rgba(11,57,39,.08);
+  transition: transform .35s ease, box-shadow .35s ease;
 }
 
-.book-cover > span {
-  font-size: 8px;
-  letter-spacing: 2px;
-  color: #B8E4CB;
+.book-cover-image:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 22px 28px 48px rgba(11,57,39,.22);
 }
 
-.book-cover-line {
-  width: 35px;
-  height: 2px;
-  margin-top: 32px;
-  background: #3AC79A;
-}
-
-.book-cover h3 {
-  margin-top: 25px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 28px;
-  line-height: 1.1;
-  letter-spacing: -1px;
-}
-
-.book-cover h3 span {
-  color: #58D5AA;
-}
-
-.book-cover p {
-  font-size: 9px;
-  color: #BDD4C6;
-  line-height: 1.7;
-  margin-top: 18px;
-  max-width: 155px;
-}
-
-.book-cover-mark {
-  margin-top: auto;
-  font-size: 35px;
-  color: #55D0A4;
-  align-self: flex-end;
-}
-
-.book-cover small {
-  font-size: 7px;
-  letter-spacing: 1.3px;
-  color: #D1E8DA;
-  margin-top: 15px;
-}
+/* FINANCIAL TOOLS */
 
 .tools-section {
   background: #F6F9F6;
@@ -619,6 +600,8 @@ button {
   font-size: 18px;
 }
 
+/* FUTURESIM */
+
 .futuresim-section {
   padding: 90px 12%;
   display: flex;
@@ -663,6 +646,8 @@ button {
   color: #39B987;
 }
 
+/* CLOSING SECTION */
+
 .closing-section {
   padding: 115px 25px;
   text-align: center;
@@ -675,6 +660,8 @@ button {
   margin: 20px 0 30px;
   font-size: clamp(39px, 5vw, 60px);
 }
+
+/* FOOTER */
 
 .footer {
   padding: 32px 9%;
@@ -695,16 +682,32 @@ button {
   font-size: 13px;
 }
 
+/* ANIMATIONS */
+
 @keyframes rise {
   from {
     opacity: 0;
     transform: translateY(22px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TABLET RESPONSIVENESS */
 
 @media (max-width: 1050px) {
   .header {
@@ -730,6 +733,8 @@ button {
     padding-right: 8%;
   }
 }
+
+/* MOBILE RESPONSIVENESS */
 
 @media (max-width: 780px) {
   .header {
@@ -812,6 +817,11 @@ button {
 
   .book-art {
     min-height: 430px;
+    padding: 25px;
+  }
+
+  .book-cover-image {
+    max-width: 340px;
   }
 
   .futuresim-section {
@@ -826,6 +836,8 @@ button {
     flex-wrap: wrap;
   }
 }
+
+/* SMALL MOBILE SCREENS */
 
 @media (max-width: 520px) {
   .brand {
