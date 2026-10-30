@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B3927">
+  <title>Emergency Fund Planner | WealthLab Africa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --forest:#0B3927;
+      --emerald:#147D50;
+      --teal:#28A67A;
+      --mint:#D9EEE1;
+      --soft:#F3F8F4;
+      --text:#18352A;
+      --muted:#718078;
+      --border:#E4ECE6;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      font-family:'DM Sans',sans-serif;
+      background:var(--soft);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    button,input,select { font:inherit; }
+
+    .header {
+      background:white;
+      border-bottom:1px solid var(--border);
+      padding:17px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:11px;
+      color:var(--forest);
+      font-family:Manrope,sans-serif;
+      font-weight:800;
+      font-size:15px;
+      text-decoration:none;
+    }
+
+    .brand img { width:40px;height:40px;object-fit:contain; }
+    .brand span span { color:var(--emerald); }
+
+    .back-link {
+      color:var(--emerald);
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .container {
+      width:min(1050px,90%);
+      margin:55px auto 80px;
+    }
+
+    .eyebrow {
+      color:var(--emerald);
+      font-size:10px;
+      letter-spacing:2px;
+      font-weight:800;
+    }
+
+    h1,h2,h3 { font-family:Manrope,sans-serif; }
+
+    h1 {
+      color:var(--forest);
+      font-size:clamp(34px,5vw,48px);
+      letter-spacing:-2px;
+      margin:12px 0;
+    }
+
+    .intro {
+      color:var(--muted);
+      max-width:690px;
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    .layout {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-top:35px;
+      align-items:start;
+    }
+
+    .panel {
+      background:white;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:26px;
+      min-width:0;
+    }
+
+    .panel h2 {
+      color:var(--forest);
+      font-size:19px;
+      margin-bottom:8px;
+    }
+
+    .description {
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:22px;
+    }
+
+    .field { margin-bottom:17px; }
+
+    label {
+      display:block;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:7px;
+    }
+
+    input,select {
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:6px;
+      padding:12px;
+      background:#FCFEFC;
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+
+    input:focus,select:focus {
+      border-color:var(--teal);
+      box-shadow:0 0 0 3px rgba(40,166,122,.1);
+    }
+
+    .target-options {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:9px;
+      margin-top:9px;
+    }
+
+    .target-option {
+      border:1px solid var(--border);
+      border-radius:7px;
+      padding:12px 5px;
+      text-align:center;
+      cursor:pointer;
+      background:white;
+    }
+
+    .target-option:has(input:checked) {
+      border-color:var(--teal);
+      background:#F1FAF5;
+    }
+
+    .target-option input {
+      width:auto;
+      accent-color:var(--emerald);
+    }
+
+    .target-option strong {
+      display:block;
+      color:var(--forest);
+      font-size:14px;
+    }
+
+    .target-option small {
+      display:block;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .primary-button {
+      width:100%;
+      border:0;
+      border-radius:6px;
+      background:var(--forest);
+      color:white;
+      padding:14px;
+      font-size:13px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .primary-button:hover { background:var(--emerald); }
+
+    .result-card {
+      background:var(--forest);
+      color:white;
+      border-radius:10px;
+      padding:25px;
+      margin-bottom:16px;
+    }
+
+    .result-card span {
+      color:#B9D4C6;
+      font-size:12px;
+    }
+
+    .result-card strong {
+      display:block;
+      font-family:Manrope,sans-serif;
+      font-size:clamp(27px,4vw,36px);
+      margin-top:7px;
+      overflow-wrap:anywhere;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .result-item {
+      background:white;
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:17px;
+    }
+
+    .result-item span {
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .result-item strong {
+      display:block;
+      color:var(--forest);
+      font-family:Manrope,sans-serif;
+      font-size:20px;
+      margin-top:6px;
+      overflow-wrap:anywhere;
+    }
+
+    .progress-panel {
+      margin-top:16px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:20px;
+    }
+
+    .progress-heading {
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      margin-bottom:10px;
+    }
+
+    .progress-heading strong { color:var(--emerald); }
+
+    .progress-track {
+      width:100%;
+      height:10px;
+      background:#E9F1EB;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .progress-fill {
+      height:100%;
+      width:0;
+      background:var(--teal);
+      border-radius:20px;
+      transition:width .5s;
+    }
+
+    .progress-note {
+      color:var(--muted);
+      font-size:11px;
+      margin-top:10px;
+    }
+
+    .feedback {
+      display:none;
+      padding:12px;
+      border-radius:6px;
+      margin-top:15px;
+      font-size:12px;
+    }
+
+    .feedback.error {
+      display:block;
+      background:#FFF0F0;
+      color:#A43B3B;
+    }
+
+    .feedback.success {
+      display:block;
+      background:#EAF7EF;
+      color:var(--emerald);
+    }
+
+    .tip {
+      margin-top:22px;
+      padding:22px;
+      background:var(--mint);
+      border-radius:9px;
+    }
+
+    .tip h3 {
+      color:var(--forest);
+      font-size:15px;
+      margin-bottom:8px;
+    }
+
+    .tip p {
+      color:#476657;
+      font-size:12px;
+      line-height:1.8;
+    }
+
+    .footer {
+      background:var(--forest);
+      color:#C2D6CA;
+      text-align:center;
+      padding:25px;
+      font-size:11px;
+    }
+
+    @media(max-width:760px) {
+      .layout { grid-template-columns:1fr; }
+      .container { margin-top:35px; }
+      .header { padding:14px 5%; }
+    }
+
+    @media(max-width:420px) {
+      .result-grid { grid-template-columns:1fr; }
+      .panel { padding:19px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <a href="index.html" class="brand">
+    <img src="wealthlab-logo.svg" alt="WealthLab Africa logo">
+    <span>WEALTHLAB <span>AFRICA</span></span>
+  </a>
+  <a href="index.html#tools" class="back-link">← Back to WealthLab</a>
+</header>
+
+<main class="container">
+
+  <div class="eyebrow">WEALTHLAB FINANCIAL TOOLS</div>
+  <h1>Prepare for the unexpected.</h1>
+  <p class="intro">
+    Build a financial safety net for life's unexpected moments.
+    Calculate your emergency fund target and create a realistic
+    monthly savings plan.
+  </p>
+
+  <section class="layout">
+
+    <div class="panel">
+      <h2>Your financial situation</h2>
+      <p class="description">
+        Enter your essential monthly expenses and current emergency savings.
+      </p>
+
+      <div class="field">
+        <label for="expenses">Essential monthly expenses (BWP)</label>
+        <input type="number" id="expenses" min="0.01" step="0.01" placeholder="e.g. 4500">
+      </div>
+
+      <div class="field">
+        <label for="current-savings">Current emergency savings (BWP)</label>
+        <input type="number" id="current-savings" min="0" step="0.01" value="0" placeholder="e.g. 2000">
+      </div>
+
+      <div class="field">
+        <label>Choose your emergency fund target</label>
+
+        <div class="target-options">
+          <label class="target-option">
+            <input type="radio" name="months" value="3">
+            <strong>3 months</strong>
+            <small>Starter fund</small>
+          </label>
+
+          <label class="target-option">
+            <input type="radio" name="months" value="6" checked>
+            <strong>6 months</strong>
+            <small>Common target</small>
+          </label>
+
+          <label class="target-option">
+            <input type="radio" name="months" value="12">
+            <strong>12 months</strong>
+            <small>Extended cover</small>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="monthly-saving">How much can you save each month? (BWP)</label>
+        <input type="number" id="monthly-saving" min="0" step="0.01" placeholder="e.g. 500">
+      </div>
+
+      <button type="button" class="primary-button" id="calculate">
+        Calculate my emergency fund →
+      </button>
+
+      <div id="feedback" class="feedback" role="status"></div>
+    </div>
+
+    <div>
+      <div class="result-card">
+        <span>Your emergency fund target</span>
+        <strong id="target">P 0.00</strong>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span>Remaining amount to save</span>
+          <strong id="remaining">P 0.00</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Estimated saving time</span>
+          <strong id="time">—</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Current savings</span>
+          <strong id="saved">P 0.00</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Monthly savings goal</span>
+          <strong id="monthly-goal">P 0.00</strong>
+        </div>
+      </div>
+
+      <div class="progress-panel">
+        <div class="progress-heading">
+          <span>Emergency fund progress</span>
+          <strong id="percentage">0%</strong>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <p class="progress-note" id="progress-note">
+          Enter your details to see your progress.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="tip">
+    <h3>Why build an emergency fund?</h3>
+    <p>
+      An emergency fund is money set aside for unexpected expenses
+      such as medical bills, urgent repairs or temporary loss of income.
+      It helps reduce reliance on loans and credit when difficult
+      situations arise.
+      <br><br>
+      A common starting goal is three months of essential expenses.
+      Six months or more may be appropriate if your income is irregular,
+      you have dependants or your financial responsibilities are higher.
+    </p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> WealthLab Africa · Learn. Understand. Build. Grow.
+</footer>
+
+<script>
+  const expensesInput = document.getElementById("expenses");
+  const savingsInput = document.getElementById("current-savings");
+  const monthlyInput = document.getElementById("monthly-saving");
+  const feedback = document.getElementById("feedback");
+
+  function money(value) {
+    return "P " + value.toLocaleString("en-BW", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function showFeedback(message, type) {
+    feedback.textContent = message;
+    feedback.className = "feedback " + type;
+  }
+
+  function calculateFund() {
+    const expenses = Number(expensesInput.value);
+    const savings = Number(savingsInput.value);
+    const monthly = Number(monthlyInput.value);
+
+    const selectedMonths = document.querySelector(
+      'input[name="months"]:checked'
+    );
+
+    if (!Number.isFinite(expenses) || expenses <= 0 ||
+        !Number.isFinite(savings) || savings < 0 ||
+        !Number.isFinite(monthly) || monthly < 0 ||
+        !selectedMonths) {
+      showFeedback(
+        "Please enter valid expenses, savings and monthly contribution amounts.",
+        "error"
+      );
+      return;
+    }
+
+    const months = Number(selectedMonths.value);
+    const target = expenses * months;
+    const remaining = Math.max(0, target - savings);
+    const progress = Math.min(100, (savings / target) * 100);
+
+    let savingTime = "Already reached";
+
+    if (remaining > 0 && monthly > 0) {
+      const requiredMonths = Math.ceil(remaining / monthly);
+      const years = Math.floor(requiredMonths / 12);
+      const extraMonths = requiredMonths % 12;
+
+      savingTime = "";
+
+      if (years > 0) {
+        savingTime += years + (years === 1 ? " year " : " years ");
+      }
+
+      if (extraMonths > 0) {
+        savingTime += extraMonths + (extraMonths === 1 ? " month" : " months");
+      }
+
+      savingTime = savingTime.trim();
+    } else if (remaining > 0) {
+      savingTime = "Set a monthly goal";
+    }
+
+    document.getElementById("target").textContent = money(target);
+    document.getElementById("remaining").textContent = money(remaining);
+    document.getElementById("time").textContent = savingTime;
+    document.getElementById("saved").textContent = money(savings);
+    document.getElementById("monthly-goal").textContent = money(monthly);
+
+    document.getElementById("percentage").textContent =
+      progress.toFixed(1) + "%";
+
+    document.getElementById("progress").style.width =
+      progress.toFixed(2) + "%";
+
+    document.getElementById("progress-note").textContent =
+      money(savings) + " saved out of " + money(target) + ".";
+
+    if (remaining === 0) {
+      showFeedback(
+        "Congratulations! You have reached your selected emergency fund target.",
+        "success"
+      );
+    } else if (monthly === 0) {
+      showFeedback(
+        "Your target is calculated. Enter a monthly savings contribution to estimate how long it will take.",
+        "success"
+      );
+    } else {
+      showFeedback(
+        "Your emergency fund plan has been calculated. Keep contributing consistently towards your target.",
+        "success"
+      );
+    }
+  }
+
+  document.getElementById("calculate").addEventListener("click", calculateFund);
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
